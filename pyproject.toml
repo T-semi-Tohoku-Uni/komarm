@@ -1,0 +1,23 @@
+[project]
+name = "komarm"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "isaacsim[all,extscache]==5.1.0",
+    "torch==2.7.0",
+    "torchvision==0.22.0",
+]
+
+[tool.uv]
+extra-index-url = ["https://pypi.nvidia.com"]
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+torchvision = { index = "pytorch-cu128" }
