@@ -1,0 +1,139 @@
+<?xml version="1.0" ?>
+<robot name="arm_main" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="/home/keigo/komarm/urdf/materials.xacro" />
+<xacro:include filename="/home/keigo/komarm/urdf/arm_main.trans" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.0012214089016151053 0.02712127606702909 -0.02444560560426352" rpy="0 0 0"/>
+    <mass value="0.8833573620888653"/>
+    <inertia ixx="0.001118" iyy="0.000472" izz="0.000805" ixy="3e-06" iyz="0.000355" ixz="-4e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_main_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_main_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="servo_holder2_v2_1">
+  <inertial>
+    <origin xyz="-0.023124515666649855 0.08470253666904037 -8.411334129210246e-12" rpy="0 0 0"/>
+    <mass value="0.7144775958239902"/>
+    <inertia ixx="0.001083" iyy="0.000178" izz="0.001183" ixy="-2e-06" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0227 -0.1264 -0.04195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_main_description/meshes/servo_holder2_v2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0227 -0.1264 -0.04195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_main_description/meshes/servo_holder2_v2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hand_rotation_v11_4">
+  <inertial>
+    <origin xyz="-0.023199999989499457 0.03605179829238042 -0.019122913280508146" rpy="0 0 0"/>
+    <mass value="0.5077046555158917"/>
+    <inertia ixx="0.000247" iyy="0.000181" izz="0.000228" ixy="-0.0" iyz="7e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0227 -0.2576 -0.04195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_main_description/meshes/hand_rotation_v11_4.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0227 -0.2576 -0.04195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_main_description/meshes/hand_rotation_v11_4.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hand_v15_1">
+  <inertial>
+    <origin xyz="0.0018662468545444656 0.046209557945012414 -9.894154345851947e-06" rpy="0 0 0"/>
+    <mass value="0.8683719536760056"/>
+    <inertia ixx="0.000728" iyy="0.000758" izz="0.001224" ixy="0.000141" iyz="-2e-06" ixz="8e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0005 -0.318 -0.04195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_main_description/meshes/hand_v15_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0005 -0.318 -0.04195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_main_description/meshes/hand_v15_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="servo_holder_v15_3">
+  <inertial>
+    <origin xyz="-0.02326241518713279 0.09672306724863754 0.006744967499623274" rpy="0 0 0"/>
+    <mass value="0.6761166227960398"/>
+    <inertia ixx="0.001236" iyy="0.000249" izz="0.001269" ixy="1e-06" iyz="-0.000135" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0227 -0.0 -0.0125" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_main_description/meshes/servo_holder_v15_3.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0227 -0.0 -0.0125" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_main_description/meshes/servo_holder_v15_3.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Revolute 7" type="continuous">
+  <origin xyz="0.0 0.1264 0.02945" rpy="0 0 0"/>
+  <parent link="servo_holder_v15_3"/>
+  <child link="servo_holder2_v2_1"/>
+  <axis xyz="-1.0 0.0 0.0"/>
+</joint>
+
+<joint name="Revolute 8" type="continuous">
+  <origin xyz="0.0 0.1312 0.0" rpy="0 0 0"/>
+  <parent link="servo_holder2_v2_1"/>
+  <child link="hand_rotation_v11_4"/>
+  <axis xyz="1.0 -0.0 -0.0"/>
+</joint>
+
+<joint name="Revolute 9" type="continuous">
+  <origin xyz="-0.0232 0.0604 0.0" rpy="0 0 0"/>
+  <parent link="hand_rotation_v11_4"/>
+  <child link="hand_v15_1"/>
+  <axis xyz="-0.0 -1.0 -0.0"/>
+</joint>
+
+<joint name="Revolute 11" type="continuous">
+  <origin xyz="0.0227 0.0 0.0125" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="servo_holder_v15_3"/>
+  <axis xyz="-1.0 -0.0 -0.0"/>
+</joint>
+
+</robot>
