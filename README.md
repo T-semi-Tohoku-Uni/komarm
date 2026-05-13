@@ -10,4 +10,10 @@ uv sync
 install lsaac lab
 ```bash
 
-```# komarm
+```
+
+## issacsim
+execute handless
+```bash
+uv run isaacsim isaacsim.exp.full.streaming --no-window
+```
