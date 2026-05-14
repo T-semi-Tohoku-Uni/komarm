@@ -45,4 +45,15 @@
   </actuator>
 </transmission>
 
+<transmission name="Revolute 12_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="Revolute 12">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="Revolute 12_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
 </robot>
