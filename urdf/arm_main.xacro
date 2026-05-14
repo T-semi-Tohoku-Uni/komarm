@@ -129,18 +129,20 @@
   </collision>
 </link>
 
-<joint name="Revolute 7" type="continuous">
+<joint name="Revolute 7" type="revolute">
   <origin xyz="0.0005 0.0324 0.02945" rpy="0 0 0"/>
   <parent link="servo_holder_v23_3"/>
   <child link="servo_holder2_v9_1"/>
   <axis xyz="1.0 -0.0 0.0"/>
+  <limit upper="0.0" lower="-3.141593" effort="100" velocity="100"/>
 </joint>
 
-<joint name="Revolute 8" type="continuous">
+<joint name="Revolute 8" type="revolute">
   <origin xyz="0.001 -0.0662 0.0" rpy="0 0 0"/>
   <parent link="servo_holder2_v9_1"/>
   <child link="hand_rotation_v13_4"/>
   <axis xyz="1.0 0.0 0.0"/>
+  <limit upper="1.570796" lower="-0.349066" effort="100" velocity="100"/>
 </joint>
 
 <joint name="Revolute 9" type="continuous">
@@ -150,18 +152,20 @@
   <axis xyz="-0.0 1.0 0.0"/>
 </joint>
 
-<joint name="Revolute 11" type="continuous">
+<joint name="Revolute 11" type="revolute">
   <origin xyz="0.02255 -0.0369 0.029" rpy="0 0 0"/>
   <parent link="base_mount_v2_1"/>
   <child link="servo_holder_v23_3"/>
   <axis xyz="-1.0 -0.0 -0.0"/>
+  <limit upper="0.0" lower="-3.141593" effort="100" velocity="100"/>
 </joint>
 
-<joint name="Revolute 12" type="continuous">
+<joint name="Revolute 12" type="revolute">
   <origin xyz="-0.00135 0.0369 -0.0165" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="base_mount_v2_1"/>
   <axis xyz="0.0 -0.0 -1.0"/>
+  <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
 </joint>
 
 </robot>
