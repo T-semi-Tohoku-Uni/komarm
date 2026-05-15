@@ -13,7 +13,7 @@ import sys
 from isaaclab.app import AppLauncher
 
 # local imports
-import isaac_so_arm101.scripts.rsl_rl.cli_args as cli_args # isort: skip
+import komarm.scripts.rsl_rl.cli_args as cli_args # isort: skip
 
 # add argparse arguments
 parser = argparse.ArgumentParser(description="Train an RL agent with RSL-RL.")
@@ -74,7 +74,7 @@ from isaaclab.source.isaaclab_rl.isaaclab_rl.utils.pretrained_checkpoint import 
 from isaaclab_rl.rsl_rl import RslRlBaseRunnerCfg, RslRlVecEnvWrapper, export_policy_as_jit, export_policy_as_onnx
 
 import isaaclab_tasks  # noqa: F401
-import isaac_so_arm101.tasks  # noqa: F401
+import komarm.tasks  # noqa: F401
 from isaaclab_tasks.utils import get_checkpoint_path
 from isaaclab_tasks.utils.hydra import hydra_task_config
 

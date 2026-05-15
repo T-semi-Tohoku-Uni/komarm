@@ -27,7 +27,7 @@ simulation_app = app_launcher.app
 import gymnasium as gym
 from prettytable import PrettyTable
 
-import isaac_so_arm101.tasks  # noqa: F401
+import komarm.tasks  # noqa: F401
 
 
 def main():
