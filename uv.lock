@@ -1717,7 +1717,7 @@ wheels = [
 [[package]]
 name = "komarm"
 version = "0.1.0"
-source = { editable = "." }
+source = { virtual = "." }
 dependencies = [
     { name = "isaaclab", extra = ["all", "isaacsim"] },
     { name = "omniverse-kit", version = "107.3.7.285824", source = { registry = "https://pypi.nvidia.com/" }, marker = "python_full_version < '3.12'" },
