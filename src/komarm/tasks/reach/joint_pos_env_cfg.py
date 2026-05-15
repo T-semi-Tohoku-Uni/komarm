@@ -17,7 +17,7 @@
 # import mdp
 import isaaclab_tasks.manager_based.manipulation.reach.mdp as mdp
 from isaaclab.utils import configclass
-from komarm.robots import SO_ARM100_CFG, SO_ARM101_CFG  # noqa: F401
+from komarm.robots import SO_ARM100_CFG, SO_ARM101_CFG, KOMARM_CFG  # noqa: F401
 from komarm.tasks.reach.reach_env_cfg import ReachEnvCfg
 
 ##
@@ -102,4 +102,49 @@ class SoArm101ReachEnvCfg_PLAY(SoArm101ReachEnvCfg):
         self.scene.num_envs = 50
         self.scene.env_spacing = 2.5
         # disable randomization for play
+        self.observations.policy.enable_corruption = False
+
+@configclass
+class KomarmReachEnvCfg(ReachEnvCfg):
+    def __post_init__(self):
+        super().__post_init__()
+
+        # 自作5軸ロボットに差し替え
+        self.scene.robot = KOMARM_CFG.replace(
+            prim_path="{ENV_REGEX_NS}/Robot"
+        )
+
+        # エンドエフェクタのリンク名に変更
+        self.rewards.end_effector_position_tracking.params["asset_cfg"].body_names = ["hand_v17_1"]
+        self.rewards.end_effector_position_tracking_fine_grained.params["asset_cfg"].body_names = ["hand_v17_1"]
+        self.rewards.end_effector_orientation_tracking.params["asset_cfg"].body_names = ["hand_v17_1"]
+
+        # 5軸だと姿勢追従は厳しいことがあるので最初は切るのがおすすめ
+        self.rewards.end_effector_orientation_tracking.weight = 0.0
+
+        # 5軸の可動ジョイント名
+        self.actions.arm_action = mdp.JointPositionActionCfg(
+            asset_name="robot",
+            joint_names=[
+                "Revolute_7",
+                "Revolute_8",
+                "Revolute_9",
+                "Revolute_11",
+                "Revolute_12",
+            ],
+            scale=0.5,
+            use_default_offset=True,
+        )
+
+        # コマンド対象のエンドエフェクタ
+        self.commands.ee_pose.body_name = ["hand_v17_1"]
+
+
+@configclass
+class KomarmReachEnvCfg_PLAY(KomarmReachEnvCfg):
+    def __post_init__(self):
+        super().__post_init__()
+
+        self.scene.num_envs = 50
+        self.scene.env_spacing = 2.5
         self.observations.policy.enable_corruption = False
