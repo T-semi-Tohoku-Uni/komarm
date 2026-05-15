@@ -12,6 +12,20 @@ install lsaac lab
 
 ```
 
+## Train and Evaluation
+```bash
+uv run -m  komarm.scripts.rsl_rl.train --task Isaac-SO-ARM100-Reach-Play-v0 --headless
+```
+
+```bash
+uv run -m komarm.scripts.rsl_rl.play \
+  --task Isaac-SO-ARM100-Reach-Play-v0 \
+  --headless \
+  --enable_cameras \
+  --livestream 1 \
+  --kit_args "--no-window --/app/livestream/publicEndpointAddress=${PUBLIC_IP} --/app/livestream/port=49100"
+```
+
 ## issacsim
 execute handless
 ```bash

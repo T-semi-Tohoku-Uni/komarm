@@ -5,7 +5,14 @@ build/
 dist/
 wheels/
 *.egg-info
+
 logs/
+outputs/
+
+.vscode/*
+# But keep settings.json
+!.vscode/settings.json
 
 # Virtual environments
 .venv
+${data}/
