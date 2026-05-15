@@ -1,0 +1,13 @@
+{
+    "python.analysis.extraPaths": [
+        "${env:HOME}/komarm/.venv/lib/python3.11/site-packages/isaaclab/source/isaaclab",
+        "${env:HOME}/komarm/.venv/lib/python3.11/site-packages/isaaclab/source/isaaclab_tasks",
+        "${env:HOME}/komarm/.venv/lib/python3.11/site-packages/isaaclab/source/isaaclab_assets",
+        "${env:HOME}/komarm/.venv/lib/python3.11/site-packages/isaaclab/source/isaaclab_rl"
+    ],
+    "ROS2.distro": "humble",
+    "python.autoComplete.extraPaths": [
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}
