@@ -24,7 +24,7 @@ class ReachPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     experiment_name = "reach"
     run_name = ""
     resume = False
-    empirical_normalization = False
+    empirical_normalization = True
     policy = RslRlPpoActorCriticCfg(
         init_noise_std=1.0,
         actor_hidden_dims=[64, 64],
