@@ -13,7 +13,7 @@ from dataclasses import MISSING
 import isaaclab.sim as sim_utils
 
 # from . import mdp
-import komarm.tasks.lift.mdp as mdp
+import tasks.lift.mdp as mdp
 from isaaclab.assets import (
     ArticulationCfg,
     AssetBaseCfg,

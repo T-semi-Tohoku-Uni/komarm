@@ -17,8 +17,8 @@
 # import mdp
 import isaaclab_tasks.manager_based.manipulation.reach.mdp as mdp
 from isaaclab.utils import configclass
-from komarm.robots import SO_ARM100_CFG, SO_ARM101_CFG, KOMARM_CFG # noqa: F401
-from komarm.tasks.reach.reach_env_cfg import ReachEnvCfg
+from robots import SO_ARM100_CFG, SO_ARM101_CFG, KOMARM_CFG # noqa: F401
+from tasks.reach.reach_env_cfg import ReachEnvCfg
 
 
 ##
