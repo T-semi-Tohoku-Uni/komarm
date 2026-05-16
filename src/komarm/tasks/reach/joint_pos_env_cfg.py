@@ -17,8 +17,9 @@
 # import mdp
 import isaaclab_tasks.manager_based.manipulation.reach.mdp as mdp
 from isaaclab.utils import configclass
-from komarm.robots import SO_ARM100_CFG, SO_ARM101_CFG  # noqa: F401
+from komarm.robots import SO_ARM100_CFG, SO_ARM101_CFG, KOMARM_CFG # noqa: F401
 from komarm.tasks.reach.reach_env_cfg import ReachEnvCfg
+
 
 ##
 # Scene definition
@@ -103,3 +104,40 @@ class SoArm101ReachEnvCfg_PLAY(SoArm101ReachEnvCfg):
         self.scene.env_spacing = 2.5
         # disable randomization for play
         self.observations.policy.enable_corruption = False
+
+
+@configclass
+class KomarmReachEnvCfg(ReachEnvCfg):
+    def __post_init__(self):
+        # post init of parent 
+        super().__post_init__()
+
+        self.scene.robot = KOMARM_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+        # override rewards
+        self.rewards.end_effector_position_tracking.params["asset_cfg"].body_names = ["hand_v17_1"]
+        self.rewards.end_effector_position_tracking_fine_grained.params["asset_cfg"].body_names = ["hand_v17_1"]
+        self.rewards.end_effector_orientation_tracking.params["asset_cfg"].body_names = ["hand_v17_1"]
+        # disable orientation tracking
+        self.rewards.end_effector_orientation_tracking.weight = 0.0
+
+        # override actions
+        self.actions.arm_action = mdp.JointPositionActionCfg(
+            asset_name="robot",
+            joint_names=[".*"],
+            scale=0.5,
+            use_default_offset=True,
+        )
+        # hand_v17_1 goes the target direction
+        self.commands.ee_pose.body_name = ["hand_v17_1"]
+
+@configclass
+class KomarmReachEnvCfg_PLAY(KomarmReachEnvCfg):
+    def __post_init__(self):
+        # post init of parent
+        super().__post_init__()
+        # make a smaller scene for play
+        self.scene.num_envs = 50
+        self.scene.env_spacing = 2.5
+        # disable randomization for play
+        self.observations.policy.enable_corruption = False
+
