@@ -29,7 +29,7 @@ KOMARM_CFG = ArticulationCfg(
 
     init_state=ArticulationCfg.InitialStateCfg(
         rot=(1.0, 0.0, 0.0, 0.0),
-        pos=(0.0, 0.0, 0.08),
+        pos=(0.0, 0.0, 0.13),
         joint_pos={
             "Revolute_7": 0.0,
             "Revolute_8": 0.0,

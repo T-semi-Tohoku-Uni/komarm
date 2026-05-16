@@ -80,7 +80,7 @@ class CommandsCfg:
         ranges=mdp.UniformPoseCommandCfg.Ranges(
             pos_x=(-0.1, 0.1),
             pos_y=(-0.1, 0.1),
-            pos_z=(0.0, 0.1),
+            pos_z=(0.004, 0.005),
             roll=(0.0, 0.0),
             pitch=(0.0, 0.0),
             yaw=(0.0, 0.0),
