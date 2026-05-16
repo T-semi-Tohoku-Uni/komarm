@@ -21,6 +21,11 @@ class ReachPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     num_steps_per_env = 24
     max_iterations = 1000
     save_interval = 50
+
+    # record log
+    logger = "wandb"
+    wandb_project = "komarm-reach"
+    
     experiment_name = "reach"
     run_name = ""
     resume = False

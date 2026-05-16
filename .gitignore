@@ -16,3 +16,8 @@ outputs/
 # Virtual environments
 .venv
 ${data}/
+
+# API keys and secrets
+.env
+
+wandb/

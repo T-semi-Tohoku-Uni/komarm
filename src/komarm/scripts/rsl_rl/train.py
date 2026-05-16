@@ -7,6 +7,9 @@
 
 """Launch Isaac Sim Simulator first."""
 
+from dotenv import load_dotenv
+load_dotenv()
+
 import argparse
 import sys
 
