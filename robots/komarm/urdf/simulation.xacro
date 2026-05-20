@@ -1,0 +1,225 @@
+<?xml version="1.0" ?>
+<robot name="simulation" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="/home/keigo/komarm/robots/komarm/urdf/materials.xacro" />
+<xacro:include filename="/home/keigo/komarm/robots/komarm/urdf/simulation.trans" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.0013499999845841886 0.05547364405613593 -0.03925880078129778" rpy="0 0 0"/>
+    <mass value="0.3900830776668987"/>
+    <inertia ixx="0.000131" iyy="7.1e-05" izz="0.000111" ixy="-0.0" iyz="2e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="arm_bracket_v1_2">
+  <inertial>
+    <origin xyz="-1.9738984752271094e-15 0.008753233034828195 -0.0168172038554755" rpy="0 0 0"/>
+    <mass value="0.1366047605450555"/>
+    <inertia ixx="3.4e-05" iyy="5.6e-05" izz="4.2e-05" ixy="0.0" iyz="8e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.00135 -0.0781 0.02955" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/arm_bracket_v1_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.00135 -0.0781 0.02955" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/arm_bracket_v1_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="assembly_classis_v1_1">
+  <inertial>
+    <origin xyz="0.011998690037795575 0.048267795288133256 -0.022291723792642847" rpy="0 0 0"/>
+    <mass value="4.141207762516634"/>
+    <inertia ixx="0.013631" iyy="0.01306" izz="0.024148" ixy="-1e-06" iyz="4.6e-05" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.01135 -0.0951 0.06205" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/assembly_classis_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="aluminum_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.01135 -0.0951 0.06205" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/assembly_classis_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="servo_holder2_v1_1">
+  <inertial>
+    <origin xyz="-0.022087999236917965 -0.042450935490717844 1.2480391720082196e-11" rpy="0 0 0"/>
+    <mass value="0.4815312282713089"/>
+    <inertia ixx="0.000189" iyy="0.000107" izz="0.000233" ixy="1e-06" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0217 -0.0324 -0.04195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/servo_holder2_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0217 -0.0324 -0.04195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/servo_holder2_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hand_rotation_v1_4">
+  <inertial>
+    <origin xyz="-0.023199999989310653 -0.03180704370383808 0.018913049005446277" rpy="0 0 0"/>
+    <mass value="0.49875676728406393"/>
+    <inertia ixx="0.000221" iyy="0.000177" izz="0.0002" ixy="-0.0" iyz="7e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0227 0.0338 -0.04195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/hand_rotation_v1_4.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0227 0.0338 -0.04195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/hand_rotation_v1_4.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hand_v1_1">
+  <inertial>
+    <origin xyz="0.0018876663935760566 -0.04171122715355233 1.0007712861637152e-05" rpy="0 0 0"/>
+    <mass value="0.8585184504197826"/>
+    <inertia ixx="0.000709" iyy="0.000757" izz="0.001205" ixy="-0.000142" iyz="-2e-06" ixz="-8e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0005 0.0892 -0.04195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/hand_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0005 0.0892 -0.04195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/hand_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="servo_holder_v1_3">
+  <inertial>
+    <origin xyz="-0.021805779723410443 0.030701332587508144 0.01143066713838994" rpy="0 0 0"/>
+    <mass value="0.39894172696668956"/>
+    <inertia ixx="0.000121" iyy="0.000134" izz="9.8e-05" ixy="0.0" iyz="-8e-06" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0212 -0.0 -0.0125" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/servo_holder_v1_3.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0212 -0.0 -0.0125" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/servo_holder_v1_3.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="base_mount_v1_1">
+  <inertial>
+    <origin xyz="0.00023028138914044723 -0.03219987847844947 0.0037687224019273234" rpy="0 0 0"/>
+    <mass value="0.4932742844219664"/>
+    <inertia ixx="0.000272" iyy="0.000248" izz="0.000132" ixy="1e-06" iyz="6e-05" ixz="-2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.00135 -0.0369 0.0165" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/base_mount_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.00135 -0.0369 0.0165" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://simulation_description/meshes/base_mount_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Rigid 13" type="fixed">
+  <origin xyz="-0.00135 0.0781 -0.02955" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="arm_bracket_v1_2"/>
+</joint>
+
+<joint name="Rigid 14" type="fixed">
+  <origin xyz="-0.01 0.017 -0.0325" rpy="0 0 0"/>
+  <parent link="arm_bracket_v1_2"/>
+  <child link="assembly_classis_v1_1"/>
+</joint>
+
+<joint name="Revolute 7" type="revolute">
+  <origin xyz="0.0005 0.0324 0.02945" rpy="0 0 0"/>
+  <parent link="servo_holder_v1_3"/>
+  <child link="servo_holder2_v1_1"/>
+  <axis xyz="1.0 -0.0 0.0"/>
+  <limit upper="0.0" lower="-3.141593" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 8" type="revolute">
+  <origin xyz="0.001 -0.0662 0.0" rpy="0 0 0"/>
+  <parent link="servo_holder2_v1_1"/>
+  <child link="hand_rotation_v1_4"/>
+  <axis xyz="1.0 0.0 0.0"/>
+  <limit upper="1.570796" lower="-0.349066" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 9" type="continuous">
+  <origin xyz="-0.0232 -0.0554 0.0" rpy="0 0 0"/>
+  <parent link="hand_rotation_v1_4"/>
+  <child link="hand_v1_1"/>
+  <axis xyz="-0.0 1.0 0.0"/>
+</joint>
+
+<joint name="Revolute 11" type="revolute">
+  <origin xyz="0.02255 -0.0369 0.029" rpy="0 0 0"/>
+  <parent link="base_mount_v1_1"/>
+  <child link="servo_holder_v1_3"/>
+  <axis xyz="-1.0 -0.0 -0.0"/>
+  <limit upper="0.0" lower="-3.141593" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 12" type="revolute">
+  <origin xyz="-0.00135 0.0369 -0.0165" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="base_mount_v1_1"/>
+  <axis xyz="0.0 -0.0 -1.0"/>
+  <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+</joint>
+
+</robot>
