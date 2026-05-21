@@ -22,7 +22,8 @@ from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 from robots import SO_ARM100_CFG, SO_ARM101_CFG  # noqa: F401
 from tasks.lift.lift_env_cfg import LiftEnvCfg
-
+# インポートを修正
+from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg, CollisionPropertiesCfg
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 
 
@@ -66,6 +67,7 @@ class SoArm100LiftCubeEnvCfg(LiftEnvCfg):
                     max_depenetration_velocity=5.0,
                     disable_gravity=False,
                 ),
+                collision_props=CollisionPropertiesCfg(),
             ),
         )
 
@@ -141,6 +143,7 @@ class SoArm101LiftCubeEnvCfg(LiftEnvCfg):
                     max_depenetration_velocity=5.0,
                     disable_gravity=False,
                 ),
+                collision_props=CollisionPropertiesCfg(),
             ),
         )
 
