@@ -27,6 +27,9 @@ from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg, CollisionPr
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 
 
+"lift_env_cfg.pyで定義された抽象的な学習環境を、SO Arm 100/101とキューブで具体化した環境定義"
+
+
 @configclass
 class SoArm100LiftCubeEnvCfg(LiftEnvCfg):
     def __post_init__(self):
@@ -34,23 +37,23 @@ class SoArm100LiftCubeEnvCfg(LiftEnvCfg):
         super().__post_init__()
 
         # Set so arm as robot
-        self.scene.robot = SO_ARM100_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+        self.scene.robot = SO_ARM100_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")  #robotをSO Arm 100のアセットに置き換える
 
         # override actions
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot",
             joint_names=["shoulder_.*", "elbow_flex", "wrist_.*"],
-            scale=0.5,
+            scale=0.5,                                       #学習を安定させ、急激動作防止                                                               
             use_default_offset=True,
         )
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",
             joint_names=["gripper"],
-            open_command_expr={"gripper": 0.5},
-            close_command_expr={"gripper": 0.0},
+            open_command_expr={"gripper": 0.5},              #グリッパーを開くコマンドの表現
+            close_command_expr={"gripper": 0.0},             #グリッパーを閉じるコマンドの表現
         )
         # Set the body name for the end effector
-        self.commands.object_pose.body_name = ["gripper"]
+        self.commands.object_pose.body_name = ["gripper"]    #目標位置（エンドイフェクタ）をグリッパーの位置に設定
 
         # Set Cube as object
         self.scene.object = RigidObjectCfg(
@@ -65,9 +68,9 @@ class SoArm100LiftCubeEnvCfg(LiftEnvCfg):
                     max_angular_velocity=1000.0,
                     max_linear_velocity=1000.0,
                     max_depenetration_velocity=5.0,
-                    disable_gravity=False,
+                    disable_gravity=False,                   #重力が有効
                 ),
-                collision_props=CollisionPropertiesCfg(),
+                collision_props=CollisionPropertiesCfg(),    #衝突判定が有効
             ),
         )
 
@@ -84,7 +87,7 @@ class SoArm100LiftCubeEnvCfg(LiftEnvCfg):
                     prim_path="{ENV_REGEX_NS}/Robot/gripper",
                     name="end_effector",
                     offset=OffsetCfg(
-                        pos=[0.0, -0.09, 0.01],
+                        pos=[0.0, -0.09, 0.01],              #エンドイフェクタの位置から指先の位置に補正
                     ),
                 ),
             ],

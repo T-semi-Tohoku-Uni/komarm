@@ -39,6 +39,7 @@ from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 # from isaaclab.utils.visualizer import FRAME_MARKER_CFG
 # from isaaclab.utils.assets import RigidBodyPropertiesCfg
 
+"抽象的な学習環境の定義（テンプレート）"
 
 ##
 # Scene definition
@@ -211,6 +212,7 @@ class CurriculumCfg:
 # Environment configuration
 ##
 
+"上で定義したクラスのインスタンスを作成して、強化学習環境全体を抽象的に設定している"
 
 @configclass
 class LiftEnvCfg(ManagerBasedRLEnvCfg):

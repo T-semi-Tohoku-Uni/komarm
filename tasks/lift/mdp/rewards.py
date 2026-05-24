@@ -22,6 +22,9 @@ if TYPE_CHECKING:
     from isaaclab.envs import ManagerBasedRLEnv
 
 
+"lift_env_cfg.pyのRewardsCfgクラスで定義された抽象的な学習環境の報酬関数の実装"
+
+
 def object_is_lifted(
     env: ManagerBasedRLEnv, minimal_height: float, object_cfg: SceneEntityCfg = SceneEntityCfg("object")
 ) -> torch.Tensor:
