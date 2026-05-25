@@ -20,11 +20,11 @@ uv run isaacsim isaacsim.exp.full.streaming --no-window --/app/livestream/public
 
 ## Train and Evaluation
 ```bash
-uv run -m  scripts.rsl_rl.train --task Isaac-KOMARM-Reach-v0 --headless
+uv run -m  script.rsl_rl.train --task Isaac-KOMARM-Reach-v0 --headless
 ```
 
 ```bash
-uv run -m scripts.rsl_rl.play \
+uv run -m script.rsl_rl.play \
   --task Isaac-KOMARM-Reach-Play-v0 \
   --headless \
   --enable_cameras \
