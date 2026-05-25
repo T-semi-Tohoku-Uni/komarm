@@ -9,7 +9,7 @@ TEMPLATE_ASSETS_DATA_DIR = Path(__file__).resolve().parent
 
 KOMARM_CFG = ArticulationCfg(
     spawn=sim_utils.UrdfFileCfg(
-        fix_base=False,
+        fix_base=True,
         replace_cylinders_with_capsules=True,
         asset_path=f"{TEMPLATE_ASSETS_DATA_DIR}/urdf/komarm.urdf",
         activate_contact_sensors=False,
