@@ -1,0 +1,199 @@
+<?xml version="1.0" ?>
+<robot name="arm_test_main" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="/home/keigo/komarm/robots/komarm/urdf/materials.xacro" />
+<xacro:include filename="/home/keigo/komarm/robots/komarm/urdf/arm_test_main.trans" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.0003499999845567354 -0.055451634605518364 -0.01655773729685415" rpy="0 0 0"/>
+    <mass value="0.3893898243402566"/>
+    <inertia ixx="0.000131" iyy="7.1e-05" izz="0.000111" ixy="-0.0" iyz="-2e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="pitch_1_test_v5_1">
+  <inertial>
+    <origin xyz="-0.0002232261084468942 0.037799318734209816 -0.0010892901314620007" rpy="0 0 0"/>
+    <mass value="0.5173712582672985"/>
+    <inertia ixx="0.000268" iyy="0.000174" izz="0.000212" ixy="2e-06" iyz="-6.3e-05" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.00035 0.0369 -0.0062" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/pitch_1_test_v5_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.00035 0.0369 -0.0062" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/pitch_1_test_v5_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hand_finger_v1_1">
+  <inertial>
+    <origin xyz="-0.02170000000000309 0.036124214048086134 0.024494705961264657" rpy="0 0 0"/>
+    <mass value="0.18407843738656002"/>
+    <inertia ixx="0.000116" iyy="5e-05" izz="0.000135" ixy="0.0" iyz="-2.8e-05" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0215 -0.20995 -0.02465" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/hand_finger_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0215 -0.20995 -0.02465" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/hand_finger_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="roll_1_test_v11_1">
+  <inertial>
+    <origin xyz="-0.02120000001136538 0.03553001060803644 0.017590075270092268" rpy="0 0 0"/>
+    <mass value="0.45569427768407117"/>
+    <inertia ixx="0.000164" iyy="0.00015" izz="0.00013" ixy="-0.0" iyz="-1.1e-05" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0207 -0.0253 -0.01165" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/roll_1_test_v11_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0207 -0.0253 -0.01165" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/roll_1_test_v11_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="pitch_2_test_v1_1">
+  <inertial>
+    <origin xyz="0.0003543930189758741 0.026889206855970238 -2.973126154992567e-10" rpy="0 0 0"/>
+    <mass value="0.4049688490988578"/>
+    <inertia ixx="0.000118" iyy="7.6e-05" izz="0.000143" ixy="2e-06" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0005 -0.0817 -0.01165" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/pitch_2_test_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0005 -0.0817 -0.01165" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/pitch_2_test_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="roll_2_test_v1_1">
+  <inertial>
+    <origin xyz="-0.021200000011342975 0.03553313851539064 0.01761719047417286" rpy="0 0 0"/>
+    <mass value="0.45660397486942944"/>
+    <inertia ixx="0.000165" iyy="0.000151" izz="0.00013" ixy="-0.0" iyz="-1.1e-05" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0205 -0.1279 -0.01165" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/roll_2_test_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0205 -0.1279 -0.01165" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/roll_2_test_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hand_unit_v1_1">
+  <inertial>
+    <origin xyz="-0.00015861142460390045 0.032553601595988524 -0.014188170173816673" rpy="0 0 0"/>
+    <mass value="0.6163609537224307"/>
+    <inertia ixx="0.000491" iyy="0.000278" izz="0.000371" ixy="1e-06" iyz="0.000125" ixz="-3e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0007 -0.1843 -0.01165" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/hand_unit_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0007 -0.1843 -0.01165" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_test_main_description/meshes/hand_unit_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Revolute 1" type="revolute">
+  <origin xyz="0.00035 -0.0369 0.0062" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="pitch_1_test_v5_1"/>
+  <axis xyz="0.0 0.0 -1.0"/>
+  <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 6" type="revolute">
+  <origin xyz="0.0222 0.02565 0.013" rpy="0 0 0"/>
+  <parent link="hand_unit_v1_1"/>
+  <child link="hand_finger_v1_1"/>
+  <axis xyz="-1.0 -0.0 0.0"/>
+  <limit upper="0.872665" lower="-1.047198" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 2" type="revolute">
+  <origin xyz="0.02035 0.0622 0.00545" rpy="0 0 0"/>
+  <parent link="pitch_1_test_v5_1"/>
+  <child link="roll_1_test_v11_1"/>
+  <axis xyz="-1.0 -0.0 -0.0"/>
+  <limit upper="1.745329" lower="-1.396263" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 3" type="continuous">
+  <origin xyz="-0.0212 0.0564 0.0" rpy="0 0 0"/>
+  <parent link="roll_1_test_v11_1"/>
+  <child link="pitch_2_test_v1_1"/>
+  <axis xyz="-0.0 1.0 -0.0"/>
+</joint>
+
+<joint name="Revolute 4" type="revolute">
+  <origin xyz="0.021 0.0462 0.0" rpy="0 0 0"/>
+  <parent link="pitch_2_test_v1_1"/>
+  <child link="roll_2_test_v1_1"/>
+  <axis xyz="-1.0 0.0 -0.0"/>
+  <limit upper="1.919862" lower="-1.396263" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 5" type="continuous">
+  <origin xyz="-0.0212 0.0564 0.0" rpy="0 0 0"/>
+  <parent link="roll_2_test_v1_1"/>
+  <child link="hand_unit_v1_1"/>
+  <axis xyz="0.0 -1.0 -0.0"/>
+</joint>
+
+</robot>
