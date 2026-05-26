@@ -139,8 +139,8 @@ class EventCfg:
         params={
             "asset_cfg": SceneEntityCfg("robot"),
 
-            "stiffness_distribution_params": (0.5, 1.5),  #komarm.pyにあるstiffnessの値に対して、0.8倍から1.2倍の範囲でランダムに変化させる
-            "damping_distribution_params": (0.5, 1.5),    #komarm.pyにあるdampingの値に対して、0.8倍から1.2倍の範囲でランダムに変化させる
+            "stiffness_distribution_params": (0.3, 1.8),  #komarm.pyにあるstiffnessの値に対して、0.8倍から1.2倍の範囲でランダムに変化させる
+            "damping_distribution_params": (0.3, 1.8),    #komarm.pyにあるdampingの値に対して、0.8倍から1.2倍の範囲でランダムに変化させる
             "operation": "scale",                         #stiffnessとdampingの両方に同じ倍率をかける
             "distribution": "uniform",                    #一様分布 
         },
