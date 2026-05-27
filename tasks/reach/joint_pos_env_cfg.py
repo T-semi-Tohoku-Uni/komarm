@@ -114,9 +114,9 @@ class KomarmReachEnvCfg(ReachEnvCfg):
 
         self.scene.robot = KOMARM_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
         # override rewards
-        self.rewards.end_effector_position_tracking.params["asset_cfg"].body_names = ["hand_unit_v1_1"]
-        self.rewards.end_effector_position_tracking_fine_grained.params["asset_cfg"].body_names = ["hand_unit_v1_1"]
-        self.rewards.end_effector_orientation_tracking.params["asset_cfg"].body_names = ["hand_unit_v1_1"]
+        self.rewards.end_effector_position_tracking.params["asset_cfg"].body_names = ["hand_unit_v3_1"]
+        self.rewards.end_effector_position_tracking_fine_grained.params["asset_cfg"].body_names = ["hand_unit_v3_1"]
+        self.rewards.end_effector_orientation_tracking.params["asset_cfg"].body_names = ["hand_unit_v3_1"]
         # disable orientation tracking
         self.rewards.end_effector_orientation_tracking.weight = 0.0
 
@@ -128,7 +128,7 @@ class KomarmReachEnvCfg(ReachEnvCfg):
             use_default_offset=True,
         )
         # hand_v1_1 goes the target direction
-        self.commands.ee_pose.body_name = ["hand_unit_v1_1"]
+        self.commands.ee_pose.body_name = ["hand_unit_v3_1"]
 
 @configclass
 class KomarmReachEnvCfg_PLAY(KomarmReachEnvCfg):
