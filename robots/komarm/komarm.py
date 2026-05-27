@@ -47,7 +47,7 @@ KOMARM_CFG = ArticulationCfg(
             effort_limit_sim=1.5,
             velocity_limit_sim=4.0,
             stiffness={
-                "Revolute_1" : 100.0,
+                "Revolute_1" : 70.0,
                 "Revolute_2" : 100.0,
                 "Revolute_3" : 80.0,
                 "Revolute_4" : 50.0,
