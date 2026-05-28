@@ -23,9 +23,10 @@ from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 from robots import SO_ARM100_CFG, SO_ARM101_CFG, KOMARM_CFG # noqa: F401
 from tasks.lift.lift_env_cfg import LiftEnvCfg
 # インポートを修正
-from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg, CollisionPropertiesCfg
+from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg, CollisionPropertiesCfg, MassPropertiesCfg
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
-
+from isaaclab.sim.spawners.shapes.shapes_cfg import SphereCfg
+from isaaclab.sim.spawners.materials.physics_materials_cfg import RigidBodyMaterialCfg
 
 "lift_env_cfg.pyで定義された抽象的な学習環境を、SO Arm 100/101とキューブで具体化した環境定義"
 
@@ -194,15 +195,15 @@ class KomarmLiftCubeEnvCfg(LiftEnvCfg):
         # override actions
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot",
-            joint_names=[".*"],
+            joint_names=["Revolute_1", "Revolute_2", "Revolute_3", "Revolute_4", "Revolute_5"],
             scale=0.5,
             use_default_offset=True,
         )
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",
             joint_names=["Revolute_6"],
-            open_command_expr={"Revolute_6": 0.5},  #or hand_unit_v3_1
-            close_command_expr={"Revolute_6": 0.0},
+            open_command_expr={"Revolute_6": -1.57},  
+            close_command_expr={"Revolute_6": 0.8},
         )
         # Set the body name for the end effector
         self.commands.object_pose.body_name = ["hand_unit_v3_1"]
@@ -213,7 +214,7 @@ class KomarmLiftCubeEnvCfg(LiftEnvCfg):
             init_state=RigidObjectCfg.InitialStateCfg(pos=[0.2, 0.0, 0.015], rot=[1, 0, 0, 0]),
             spawn=UsdFileCfg(
                 usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
-                scale=(0.7, 0.7, 0.7),
+                scale=(0.5, 0.5, 0.5),
                 rigid_props=RigidBodyPropertiesCfg(
                     solver_position_iteration_count=16,
                     solver_velocity_iteration_count=1,
@@ -223,6 +224,9 @@ class KomarmLiftCubeEnvCfg(LiftEnvCfg):
                     disable_gravity=False,
                 ),
                 collision_props=CollisionPropertiesCfg(),
+                mass_props=MassPropertiesCfg(
+                    mass=0.03,
+                )
             ),
         )
 
@@ -239,7 +243,7 @@ class KomarmLiftCubeEnvCfg(LiftEnvCfg):
                     prim_path="{ENV_REGEX_NS}/Robot/hand_unit_v3_1",
                     name="end_effector",
                     offset=OffsetCfg(
-                        pos=[0.01, 0.0, -0.09],
+                        pos=[0.0, 0.0, 0.0],
                     ),
                 ),
             ],
