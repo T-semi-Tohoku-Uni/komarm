@@ -27,9 +27,10 @@ KOMARM_CFG = ArticulationCfg(
         ),
     ),
 
+    #robotの初期状態を定義
     init_state=ArticulationCfg.InitialStateCfg(
         rot=(1.0, 0.0, 0.0, 0.0),
-        pos=(0.0, 0.0, 0.13),
+        pos=(0.0, 0.0, 0.02),
         joint_pos={
             "Revolute_1": 0.0,
             "Revolute_2": 0.0,
