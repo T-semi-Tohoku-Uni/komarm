@@ -153,6 +153,18 @@ class EventCfg:
         },
     )
 
+    randomize_actuator_gains = EventTerm(
+        func=mdp.randomize_actuator_gains,
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("robot"),
+
+            "stiffness_distribution_params": {0.8, 1.2},  #komarm.pyにあるstiffnessの値に対して、0.8倍から1.2倍の範囲でランダムに変化させる
+            "damping_distribution_params": {0.8, 1.2},    #komarm.pyにあるdampingの値に対して、0.8倍から1.2倍の範囲でランダムに変化させる
+            "operation": "scale",                         #stiffnessとdampingの両方に同じ倍率をかける
+            "distribution": "uniform",                    #一様分布 
+        },
+    )
 
 @configclass
 class RewardsCfg:

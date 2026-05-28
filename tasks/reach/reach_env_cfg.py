@@ -80,9 +80,9 @@ class CommandsCfg:
         resampling_time_range=(5.0, 5.0),
         debug_vis=True,
         ranges=mdp.UniformPoseCommandCfg.Ranges(
-            pos_x=(-0.20, 0.20),
-            pos_y=(-0.20, -0.15),
-            pos_z=(0.0, 0.0),
+            pos_x=(0.20, 0.20),
+            pos_y=(-0.20, 0.20),
+            pos_z=(0.10, 0.10),
             roll=(0.0, 0.0),
             pitch=(0.0, 0.0),
             yaw=(0.0, 0.0),
@@ -130,6 +130,19 @@ class EventCfg:
         params={
             "position_range": (0.5, 1.5),
             "velocity_range": (0.0, 0.0),
+        },
+    )
+
+    randomize_actuator_gains = EventTerm(
+        func=mdp.randomize_actuator_gains,
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("robot"),
+
+            "stiffness_distribution_params": (0.8, 1.2),  #komarm.pyにあるstiffnessの値に対して、0.8倍から1.2倍の範囲でランダムに変化させる
+            "damping_distribution_params": (0.8, 1.2),    #komarm.pyにあるdampingの値に対して、0.8倍から1.2倍の範囲でランダムに変化させる
+            "operation": "scale",                         #stiffnessとdampingの両方に同じ倍率をかける
+            "distribution": "uniform",                    #一様分布 
         },
     )
 

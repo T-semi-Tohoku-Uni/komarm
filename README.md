@@ -11,6 +11,15 @@ To record log to wandb while training arm, copy wandb api key and paste to .env
 echo 'WANDB_API_KEY=***' >> .env
 ```
 
+## Change URDF
+Get meshes and urdf from fusion2urdf and copy it.
+Convert to xacro to urdf
+```
+sed -i "s|\$(find arm_main_description)|$(pwd)|g" urdf/materials.xacro urdf/arm_main.xacro
+uv run xacro urdf/arm_main.xacro > urdf/komarm.urdf
+sed -i 's|package://arm_main_description/|../|g' urdf/komarm.urdf
+```
+
 ## issacsim
 execute handless
 ```bash
