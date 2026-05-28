@@ -33,8 +33,8 @@ KOMARM_CFG = ArticulationCfg(
         pos=(0.0, 0.0, 0.02),
         joint_pos={
             "Revolute_1": 0.0,
-            "Revolute_2": 0.0,
-            "Revolute_3": 0.0,
+            "Revolute_2": -1.3,
+            "Revolute_3": 1.0,
             "Revolute_4": 0.0,
             "Revolute_5": 0.0,
             "Revolute_6": 0.0,
