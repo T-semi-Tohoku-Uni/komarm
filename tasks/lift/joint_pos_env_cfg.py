@@ -113,7 +113,7 @@ class SoArm100LiftCubeEnvCfg(LiftEnvCfg):
                     prim_path="{ENV_REGEX_NS}/Robot/gripper",
                     name="end_effector",
                     offset=OffsetCfg(
-                        pos=[0.0, -0.04, 0.01],              #エンドイフェクタの位置から指先の位置に補正
+                        pos=[0.0, -0.08, 0.01],              #エンドイフェクタの位置から指先の位置に補正
                     ),
                 ),
             ],
