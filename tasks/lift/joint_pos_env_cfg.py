@@ -25,6 +25,7 @@ from tasks.lift.lift_env_cfg import LiftEnvCfg
 # インポートを修正
 from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg, CollisionPropertiesCfg
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
+from isaaclab.sim import SphereCfg, MassPropertiesCfg, RigidBodyMaterialCfg
 
 
 "lift_env_cfg.pyで定義された抽象的な学習環境を、SO Arm 100/101とキューブで具体化した環境定義"
@@ -58,19 +59,44 @@ class SoArm100LiftCubeEnvCfg(LiftEnvCfg):
         # Set Cube as object
         self.scene.object = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/Object",
-            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.2, 0.0, 0.015], rot=[1, 0, 0, 0]),
-            spawn=UsdFileCfg(
-                usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
-                scale=(0.5, 0.5, 0.5),
+            init_state=RigidObjectCfg.InitialStateCfg(
+                pos=[0.2, 0.0, 0.0200],
+                rot=[1, 0, 0, 0],
+            ),
+            spawn=SphereCfg(
+                radius=0.0200,
                 rigid_props=RigidBodyPropertiesCfg(
-                    solver_position_iteration_count=16,
-                    solver_velocity_iteration_count=1,
-                    max_angular_velocity=1000.0,
+                    solver_position_iteration_count=32,
+                    solver_velocity_iteration_count=8,
+
+                    # 自転しにくくする
+                    max_angular_velocity=0.05,
+                    angular_damping=50.0,
+
+                    # 掴んだ後に暴れにくくする
                     max_linear_velocity=1000.0,
-                    max_depenetration_velocity=5.0,
-                    disable_gravity=False,                   #重力が有効
+                    linear_damping=0.5,
+
+                    max_depenetration_velocity=3.0,
+                    disable_gravity=False,
                 ),
-                collision_props=CollisionPropertiesCfg(),    #衝突判定が有効
+                mass_props=MassPropertiesCfg(
+                    mass=0.03,
+                ),
+                collision_props=CollisionPropertiesCfg(),
+                physics_material=RigidBodyMaterialCfg(
+                    # 掴み始めで接触が成立しやすい
+                    static_friction=8.0,
+
+                    # 掴んだ後に滑りにくい
+                    dynamic_friction=8.0,
+
+                    restitution=0.0,
+
+                    # ロボット指側と球側のうち、高い摩擦を優先
+                    friction_combine_mode="max",
+                    restitution_combine_mode="min",
+                ),
             ),
         )
 
