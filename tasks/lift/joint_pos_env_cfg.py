@@ -20,7 +20,7 @@ from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
 from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
-from robots import SO_ARM100_CFG, SO_ARM101_CFG  # noqa: F401
+from robots import SO_ARM100_CFG, SO_ARM101_CFG, KOMARM_CFG  # noqa: F401
 from tasks.lift.lift_env_cfg import LiftEnvCfg
 # インポートを修正
 from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg, CollisionPropertiesCfg
@@ -206,3 +206,103 @@ class SoArm101LiftCubeEnvCfg_PLAY(SoArm101LiftCubeEnvCfg):
         self.scene.env_spacing = 2.5
         # disable randomization for play
         self.observations.policy.enable_corruption = False
+
+@configclass
+class KomarmLiftCubeEnvCfg(LiftEnvCfg):
+    def __post_init__(self):
+        # post init of parent
+        super().__post_init__()
+
+        # Set so arm as robot
+        self.scene.robot = KOMARM_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+
+        # override actions
+        self.actions.arm_action = mdp.JointPositionActionCfg(
+            asset_name="robot",
+            joint_names=[".*"],
+            scale=0.5,
+            use_default_offset=True,
+        )
+        self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
+            asset_name="robot",
+            joint_names=["Revolute_6"],
+            open_command_expr={"Revolute_6": -1.57},  
+            close_command_expr={"Revolute_6": 0.8},
+        )
+        # Set the body name for the end effector
+        self.commands.object_pose.body_name = ["hand_unit_v3_1"]
+
+        # Set Cube as object
+        self.scene.object = RigidObjectCfg(
+            prim_path="{ENV_REGEX_NS}/Object",
+            init_state=RigidObjectCfg.InitialStateCfg(
+                pos=[0.2, 0.0, 0.0350],
+                rot=[1, 0, 0, 0],
+            ),
+            spawn=SphereCfg(
+                radius=0.0350,
+                rigid_props=RigidBodyPropertiesCfg(
+                    solver_position_iteration_count=32,
+                    solver_velocity_iteration_count=8,
+
+                    # 自転しにくくする
+                    max_angular_velocity=0.05,
+                    angular_damping=50.0,
+
+                    # 掴んだ後に暴れにくくする
+                    max_linear_velocity=1000.0,
+                    linear_damping=0.5,
+
+                    max_depenetration_velocity=3.0,
+                    disable_gravity=False,
+                ),
+                mass_props=MassPropertiesCfg(
+                    mass=0.03,
+                ),
+                collision_props=CollisionPropertiesCfg(),
+                physics_material=RigidBodyMaterialCfg(
+                    # 掴み始めで接触が成立しやすい
+                    static_friction=8.0,
+
+                    # 掴んだ後に滑りにくい
+                    dynamic_friction=8.0,
+
+                    restitution=0.0,
+
+                    # ロボット指側と球側のうち、高い摩擦を優先
+                    friction_combine_mode="max",
+                    restitution_combine_mode="min",
+                ),
+            ),
+        )
+
+        # Listens to the required transforms
+        marker_cfg = FRAME_MARKER_CFG.copy()
+        marker_cfg.markers["frame"].scale = (0.05, 0.05, 0.05)
+        marker_cfg.prim_path = "/Visuals/FrameTransformer"
+        self.scene.ee_frame = FrameTransformerCfg(
+            prim_path="{ENV_REGEX_NS}/Robot/base_link",
+            debug_vis=True,
+            visualizer_cfg=marker_cfg,
+            target_frames=[
+                FrameTransformerCfg.FrameCfg(
+                    prim_path="{ENV_REGEX_NS}/Robot/hand_unit_v3_1",
+                    name="end_effector",
+                    offset=OffsetCfg(
+                        pos=[0.090, 0.00, 0.00],
+                    ),
+                ),
+            ],
+        )
+
+
+@configclass
+class KomarmLiftCubeEnvCfg_PLAY(KomarmLiftCubeEnvCfg):
+    def __post_init__(self):
+        # post init of parent
+        super().__post_init__()
+        # make a smaller scene for play
+        self.scene.num_envs = 50
+        self.scene.env_spacing = 2.5
+        # disable randomization for play
+        self.observations.policy.enable_corruption = False  #あとでtrueにする
