@@ -139,5 +139,5 @@ class KomarmReachEnvCfg_PLAY(KomarmReachEnvCfg):
         self.scene.num_envs = 1
         self.scene.env_spacing = 2.5
         # disable randomization for play
-        self.observations.policy.enable_corruption = False
+        self.observations.policy.enable_corruption = False   #あとでtrueにする
 
