@@ -219,15 +219,15 @@ class KomarmLiftCubeEnvCfg(LiftEnvCfg):
         # override actions
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot",
-            joint_names=[".*"],
+            joint_names=["Revolute_1", "Revolute_2", "Revolute_3", "Revolute_4", "Revolute_5"],
             scale=0.5,
             use_default_offset=True,
         )
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",
             joint_names=["Revolute_6"],
-            open_command_expr={"Revolute_6": -1.57},  
-            close_command_expr={"Revolute_6": 0.8},
+            open_command_expr={"Revolute_6": -0.5},  
+            close_command_expr={"Revolute_6": 0.3},
         )
         # Set the body name for the end effector
         self.commands.object_pose.body_name = ["hand_unit_v3_1"]
@@ -289,7 +289,7 @@ class KomarmLiftCubeEnvCfg(LiftEnvCfg):
                     prim_path="{ENV_REGEX_NS}/Robot/hand_unit_v3_1",
                     name="end_effector",
                     offset=OffsetCfg(
-                        pos=[0.090, 0.00, 0.00],
+                        pos=[0.07, 0.00, 0.00],
                     ),
                 ),
             ],
