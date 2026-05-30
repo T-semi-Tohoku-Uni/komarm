@@ -152,7 +152,7 @@ class SoArm101LiftCubeEnvCfg(LiftEnvCfg):
             asset_name="robot",
             joint_names=["gripper"],
             open_command_expr={"gripper": 0.5},
-            close_command_expr={"gripper": 0.0},
+            close_command_expr={"gripper": -0.3},
         )
         # Set the body name for the end effector
         self.commands.object_pose.body_name = ["gripper_link"]
@@ -226,8 +226,8 @@ class KomarmLiftCubeEnvCfg(LiftEnvCfg):
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",
             joint_names=["Revolute_6"],
-            open_command_expr={"Revolute_6": -0.5},  
-            close_command_expr={"Revolute_6": 0.3},
+            open_command_expr={"Revolute_6": 0.0},  
+            close_command_expr={"Revolute_6": 0.85},
         )
         # Set the body name for the end effector
         self.commands.object_pose.body_name = ["hand_unit_v3_1"]
@@ -235,46 +235,22 @@ class KomarmLiftCubeEnvCfg(LiftEnvCfg):
         # Set Cube as object
         self.scene.object = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/Object",
-            init_state=RigidObjectCfg.InitialStateCfg(
-                pos=[0.2, 0.0, 0.0350],
-                rot=[1, 0, 0, 0],
-            ),
-            spawn=SphereCfg(
-                radius=0.0350,
+            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.2, 0.0, 0.015], rot=[1, 0, 0, 0]),
+            spawn=UsdFileCfg(
+                usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
+                scale=(0.5, 0.5, 0.5),
                 rigid_props=RigidBodyPropertiesCfg(
-                    solver_position_iteration_count=32,
-                    solver_velocity_iteration_count=8,
-
-                    # 自転しにくくする
-                    max_angular_velocity=0.05,
-                    angular_damping=50.0,
-
-                    # 掴んだ後に暴れにくくする
+                    solver_position_iteration_count=16,
+                    solver_velocity_iteration_count=1,
+                    max_angular_velocity=1000.0,
                     max_linear_velocity=1000.0,
-                    linear_damping=0.5,
-
-                    max_depenetration_velocity=3.0,
+                    max_depenetration_velocity=5.0,
                     disable_gravity=False,
                 ),
-                mass_props=MassPropertiesCfg(
-                    mass=0.03,
-                ),
                 collision_props=CollisionPropertiesCfg(),
-                physics_material=RigidBodyMaterialCfg(
-                    # 掴み始めで接触が成立しやすい
-                    static_friction=8.0,
-
-                    # 掴んだ後に滑りにくい
-                    dynamic_friction=8.0,
-
-                    restitution=0.0,
-
-                    # ロボット指側と球側のうち、高い摩擦を優先
-                    friction_combine_mode="max",
-                    restitution_combine_mode="min",
-                ),
             ),
         )
+
 
         # Listens to the required transforms
         marker_cfg = FRAME_MARKER_CFG.copy()
@@ -289,7 +265,7 @@ class KomarmLiftCubeEnvCfg(LiftEnvCfg):
                     prim_path="{ENV_REGEX_NS}/Robot/hand_unit_v3_1",
                     name="end_effector",
                     offset=OffsetCfg(
-                        pos=[0.07, 0.00, 0.00],
+                        pos=[0.09, 0.00, 0.00],
                     ),
                 ),
             ],

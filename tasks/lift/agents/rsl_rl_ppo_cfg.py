@@ -41,7 +41,7 @@ class LiftCubePPORunnerCfg(RslRlOnPolicyRunnerCfg):
         entropy_coef=0.006,
         num_learning_epochs=5,
         num_mini_batches=4,
-        learning_rate=3.0e-4,
+        learning_rate=1.0e-4,
         schedule="adaptive",
         gamma=0.98,
         lam=0.95,

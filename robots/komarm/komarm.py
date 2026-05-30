@@ -29,14 +29,14 @@ KOMARM_CFG = ArticulationCfg(
 
     init_state=ArticulationCfg.InitialStateCfg(
         rot=(1.0, 0.0, 0.0, 0.0),
-        pos=(0.0, 0.0, 0.0),
+        pos=(0.0, 0.0, 0.0685),
         joint_pos={
             "Revolute_1": 0.0,
             "Revolute_2": -1.3,
-            "Revolute_3": 1.0,
-            "Revolute_4": 0.0,
+            "Revolute_3": 0.0,
+            "Revolute_4": 1.57,
             "Revolute_5": 0.0,
-            "Revolute_6": -0.5,
+            "Revolute_6": 0.0,
         },
         # Set initial joint velocities to zero
         joint_vel={".*": 0.0},
@@ -63,10 +63,10 @@ KOMARM_CFG = ArticulationCfg(
         ),
         "gripper": ImplicitActuatorCfg(
             joint_names_expr=["Revolute_6"],
-            effort_limit_sim=2.5,  # Increased from 1.9 to 2.5 for stronger grip
+            effort_limit_sim=1.5,  # Increased from 1.9 to 2.5 for stronger grip
             velocity_limit_sim=1.5,
-            stiffness=60.0,  # Increased from 25.0 to 60.0 for more reliable closing
-            damping=20.0,  # Increased from 10.0 to 20.0 for stability
+            stiffness=5.0,  # Increased from 25.0 to 60.0 for more reliable closing
+            damping=1.0,  # Increased from 10.0 to 20.0 for stability
         ),
     },
     soft_joint_pos_limit_factor=0.9,
