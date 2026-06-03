@@ -34,6 +34,12 @@ parser.add_argument(
     "--distributed", action="store_true", default=False, help="Run training with multiple GPUs or nodes."
 )
 parser.add_argument("--export_io_descriptors", action="store_true", default=False, help="Export IO descriptors.")
+parser.add_argument(
+    "--pretrained_checkpoint",
+    type=str,
+    default=None,
+    help="Path to checkpoint used only for initializing actor-critic weights. This does not resume optimizer or iteration.",
+)
 # append RSL-RL cli arguments
 cli_args.add_rsl_rl_args(parser)
 # append AppLauncher cli args
@@ -203,6 +209,40 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         print(f"[INFO]: Loading model checkpoint from: {resume_path}")
         # load previously trained model
         runner.load(resume_path)
+
+
+    # load only policy weights as initialization, without resuming optimizer/iteration
+    if args_cli.pretrained_checkpoint is not None:
+        if agent_cfg.resume:
+            raise ValueError(
+                "--pretrained_checkpoint is for initializing a new training run. "
+                "Do not use it together with --resume."
+            )
+
+        pretrained_path = os.path.abspath(args_cli.pretrained_checkpoint)
+        print(f"[INFO]: Loading pretrained policy weights from: {pretrained_path}")
+
+        checkpoint = torch.load(
+            pretrained_path,
+            map_location=agent_cfg.device,
+            weights_only=False,
+        )
+
+        if not isinstance(checkpoint, dict):
+            raise ValueError(f"Unsupported checkpoint format: {type(checkpoint)}")
+
+        if "model_state_dict" not in checkpoint:
+            print(f"[DEBUG]: checkpoint keys = {checkpoint.keys()}")
+            raise KeyError("checkpoint does not contain 'model_state_dict'")
+
+        runner.alg.policy.load_state_dict(checkpoint["model_state_dict"])
+
+        # 念のため、新規学習としてiterationを0に固定
+        runner.current_learning_iteration = 0
+        runner.tot_timesteps = 0
+        runner.tot_time = 0
+
+    print("[INFO]: Pretrained policy weights loaded. Optimizer and iteration are reset.")
 
     # dump the configuration into log-directory
     dump_yaml(os.path.join(log_dir, "params", "env.yaml"), env_cfg)
