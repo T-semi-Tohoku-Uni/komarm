@@ -43,7 +43,7 @@ KOMARM_CFG = ArticulationCfg(
     ),
     actuators={
         "arm": ImplicitActuatorCfg(
-            joint_names_expr=["Revolute_.*"],
+            joint_names_expr=["Revolute_1", "Revolute_2", "Revolute_3", "Revolute_4", "Revolute_5"],
             effort_limit_sim=1.5,
             velocity_limit_sim=4.0,
             stiffness={

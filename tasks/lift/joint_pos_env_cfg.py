@@ -226,8 +226,8 @@ class KomarmLiftCubeEnvCfg(LiftEnvCfg):
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",
             joint_names=["Revolute_6"],
-            open_command_expr={"Revolute_6": 0.0},  
-            close_command_expr={"Revolute_6": 0.85},
+            open_command_expr={"Revolute_6": -0.4},  
+            close_command_expr={"Revolute_6": -0.4},
         )
         # Set the body name for the end effector
         self.commands.object_pose.body_name = ["hand_unit_v3_1"]
@@ -235,22 +235,46 @@ class KomarmLiftCubeEnvCfg(LiftEnvCfg):
         # Set Cube as object
         self.scene.object = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/Object",
-            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.2, 0.0, 0.015], rot=[1, 0, 0, 0]),
-            spawn=UsdFileCfg(
-                usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
-                scale=(0.5, 0.5, 0.5),
+            init_state=RigidObjectCfg.InitialStateCfg(
+                pos=[0.2, 0.0, 0.0300],
+                rot=[1, 0, 0, 0],
+            ),
+            spawn=SphereCfg(
+                radius=0.0300,
                 rigid_props=RigidBodyPropertiesCfg(
-                    solver_position_iteration_count=16,
-                    solver_velocity_iteration_count=1,
-                    max_angular_velocity=1000.0,
+                    solver_position_iteration_count=32,
+                    solver_velocity_iteration_count=8,
+
+                    # 自転しにくくする
+                    max_angular_velocity=0.05,
+                    angular_damping=50.0,
+
+                    # 掴んだ後に暴れにくくする
                     max_linear_velocity=1000.0,
-                    max_depenetration_velocity=5.0,
+                    linear_damping=0.5,
+
+                    max_depenetration_velocity=3.0,
                     disable_gravity=False,
                 ),
+                mass_props=MassPropertiesCfg(
+                    mass=0.03,
+                ),
                 collision_props=CollisionPropertiesCfg(),
+                physics_material=RigidBodyMaterialCfg(
+                    # 掴み始めで接触が成立しやすい
+                    static_friction=8.0,
+
+                    # 掴んだ後に滑りにくい
+                    dynamic_friction=8.0,
+
+                    restitution=0.0,
+
+                    # ロボット指側と球側のうち、高い摩擦を優先
+                    friction_combine_mode="max",
+                    restitution_combine_mode="min",
+                ),
             ),
         )
-
 
         # Listens to the required transforms
         marker_cfg = FRAME_MARKER_CFG.copy()
