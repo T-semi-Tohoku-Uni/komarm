@@ -179,21 +179,6 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     obs = env.get_observations()
     timestep = 0
 
-    robot = env.unwrapped.scene["robot"]
-
-    print("robot body names:")
-    print(robot.data.body_names)
-
-    print("root body:")
-    print(robot.data.body_names[0])
-
-    print("robot root world pos:")
-    print(robot.data.root_pos_w[0])
-
-    print("robot root world quat:")
-    print(robot.data.root_quat_w[0])
-
-    aaa
     # simulate environment
     while simulation_app.is_running():
         start_time = time.time()

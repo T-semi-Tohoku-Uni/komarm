@@ -34,3 +34,7 @@ def object_position_in_robot_root_frame(
         robot.data.root_state_w[:, :3], robot.data.root_state_w[:, 3:7], object_pos_w
     )
     return object_pos_b
+
+def object_position_xy_in_robot_root_frame(env):
+    pos = object_position_in_robot_root_frame(env)  # shape: (num_envs, 3)
+    return pos[:, :2]

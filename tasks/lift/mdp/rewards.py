@@ -32,7 +32,6 @@ def object_is_lifted(
     object: RigidObject = env.scene[object_cfg.name]
     return torch.where(object.data.root_pos_w[:, 2] > minimal_height, 1.0, 0.0)
 
-
 def object_ee_distance(
     env: ManagerBasedRLEnv,
     std: float,
