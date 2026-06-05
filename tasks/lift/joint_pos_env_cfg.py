@@ -26,7 +26,8 @@ from tasks.lift.lift_env_cfg import LiftEnvCfg
 from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg, CollisionPropertiesCfg
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 from isaaclab.sim import SphereCfg, MassPropertiesCfg, RigidBodyMaterialCfg
-
+from isaaclab.envs.mdp.actions.joint_actions import JointPositionAction
+import torch
 
 "lift_env_cfg.pyで定義された抽象的な学習環境を、SO Arm 100/101とキューブで具体化した環境定義"
 
@@ -206,6 +207,26 @@ class SoArm101LiftCubeEnvCfg_PLAY(SoArm101LiftCubeEnvCfg):
         self.scene.env_spacing = 2.5
         # disable randomization for play
         self.observations.policy.enable_corruption = False
+
+
+@configclass
+class DelayedJointPositionActionCfg(mdp.JointPositionActionCfg):
+    def __init__(self, cfg, env):
+        super().__init__(cfg, env)
+        self.delay_steps = cfg.delay_steps
+        self._action_buffer = torch.zeros(
+            self.delay_steps + 1,
+            self.num_envs,
+            self.action_dim,
+            device=self.device,
+        )
+    
+    def process_action(self, actions):
+        self._action_buffer = torch.roll(self._action_buffer, shifts=1, dims=0)
+        self._action_buffer[0] = actions
+        delayed_actions = self._action_buffer[-1]
+        super().process_action(delayed_actions)
+
 
 @configclass
 class KomarmLiftCubeEnvCfg(LiftEnvCfg):
