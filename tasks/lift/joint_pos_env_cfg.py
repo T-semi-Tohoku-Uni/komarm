@@ -209,8 +209,7 @@ class SoArm101LiftCubeEnvCfg_PLAY(SoArm101LiftCubeEnvCfg):
         self.observations.policy.enable_corruption = False
 
 
-@configclass
-class DelayedJointPositionActionCfg(mdp.JointPositionActionCfg):
+class DelayedJointPositionAction(JointPositionAction):
     def __init__(self, cfg, env):
         super().__init__(cfg, env)
         self.delay_steps = cfg.delay_steps
@@ -220,12 +219,18 @@ class DelayedJointPositionActionCfg(mdp.JointPositionActionCfg):
             self.action_dim,
             device=self.device,
         )
-    
-    def process_action(self, actions):
+
+    def process_actions(self, actions):
         self._action_buffer = torch.roll(self._action_buffer, shifts=1, dims=0)
         self._action_buffer[0] = actions
         delayed_actions = self._action_buffer[-1]
-        super().process_action(delayed_actions)
+        super().process_actions(delayed_actions)
+
+
+@configclass
+class DelayedJointPositionActionCfg(mdp.JointPositionActionCfg):
+    class_type: type = DelayedJointPositionAction
+    delay_steps: int = 0
 
 
 @configclass
@@ -238,12 +243,14 @@ class KomarmLiftCubeEnvCfg(LiftEnvCfg):
         self.scene.robot = KOMARM_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
         # override actions
-        self.actions.arm_action = mdp.JointPositionActionCfg(
+        self.actions.arm_action = DelayedJointPositionActionCfg(
             asset_name="robot",
             joint_names=["Revolute_1", "Revolute_2", "Revolute_3", "Revolute_4", "Revolute_5"],
             scale=0.5,
             use_default_offset=True,
+            delay_steps=1, #or2
         )
+
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",
             joint_names=["Revolute_6"],
