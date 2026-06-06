@@ -44,5 +44,5 @@ uv run -m script.rsl_rl.play \
 ## weight
 ボールの位置固定で実機アームが振動しない
 ```bash
-~/komarm/logs/rsl_rl/lift/2026-06-06_20-49-28
+~/komarm/logs/rsl_rl/lift/2026-06-06_20-49-28/exported/policy.pt
 ```
