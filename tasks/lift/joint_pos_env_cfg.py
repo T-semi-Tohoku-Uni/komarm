@@ -264,7 +264,7 @@ class KomarmLiftCubeEnvCfg(LiftEnvCfg):
         self.scene.object = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/Object",
             init_state=RigidObjectCfg.InitialStateCfg(
-                pos=[0.2, 0.0, 0.0300],
+                pos=[0.3, 0.0, 0.0300],
                 rot=[1, 0, 0, 0],
             ),
             spawn=SphereCfg(

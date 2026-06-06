@@ -147,7 +147,7 @@ class EventCfg:
         func=mdp.reset_root_state_uniform,
         mode="reset",
         params={
-            "pose_range": {"x": (0.10, 0.10), "y": (0.0, 0.0), "z": (0.0, 0.0)},  #cubeの初期位置を定義
+            "pose_range": {"x": (-0.02, 0.02), "y": (-0.02, 0.02), "z": (-0.02, 0.02)},  #cubeの初期位置を定義
             "velocity_range": {},
             "asset_cfg": SceneEntityCfg("object", body_names="Object"),
         },
