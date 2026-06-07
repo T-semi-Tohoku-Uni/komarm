@@ -178,6 +178,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # reset environment
     obs = env.get_observations()
     timestep = 0
+
     # simulate environment
     while simulation_app.is_running():
         start_time = time.time()

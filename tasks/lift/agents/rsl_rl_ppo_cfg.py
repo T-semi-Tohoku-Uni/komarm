@@ -21,6 +21,11 @@ class LiftCubePPORunnerCfg(RslRlOnPolicyRunnerCfg):
     num_steps_per_env = 24
     max_iterations = 1500
     save_interval = 50
+
+    # record log
+    logger = "wandb"
+    wandb_project = "komarm-lift"
+
     experiment_name = "lift"
     empirical_normalization = False
     policy = RslRlPpoActorCriticCfg(
@@ -36,7 +41,7 @@ class LiftCubePPORunnerCfg(RslRlOnPolicyRunnerCfg):
         entropy_coef=0.006,
         num_learning_epochs=5,
         num_mini_batches=4,
-        learning_rate=3.0e-4,
+        learning_rate=7.0e-5,
         schedule="adaptive",
         gamma=0.98,
         lam=0.95,

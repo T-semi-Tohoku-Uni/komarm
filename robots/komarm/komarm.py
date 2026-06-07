@@ -29,12 +29,12 @@ KOMARM_CFG = ArticulationCfg(
 
     init_state=ArticulationCfg.InitialStateCfg(
         rot=(1.0, 0.0, 0.0, 0.0),
-        pos=(0.0, 0.0, 0.13),
+        pos=(0.0, 0.0, 0.0685),
         joint_pos={
             "Revolute_1": 0.0,
-            "Revolute_2": 0.0,
+            "Revolute_2": -1.3,
             "Revolute_3": 0.0,
-            "Revolute_4": 0.0,
+            "Revolute_4": 1.57,
             "Revolute_5": 0.0,
             "Revolute_6": 0.0,
         },
@@ -43,7 +43,7 @@ KOMARM_CFG = ArticulationCfg(
     ),
     actuators={
         "arm": ImplicitActuatorCfg(
-            joint_names_expr=["Revolute_.*"],
+            joint_names_expr=["Revolute_1", "Revolute_2", "Revolute_3", "Revolute_4", "Revolute_5"],
             effort_limit_sim=1.5,
             velocity_limit_sim=4.0,
             stiffness={
@@ -52,7 +52,6 @@ KOMARM_CFG = ArticulationCfg(
                 "Revolute_3": 25.0,
                 "Revolute_4": 15.0,
                 "Revolute_5": 10.0,
-                "Revolute_6": 5.0,
             },
             damping={
                 "Revolute_1": 1.0,
@@ -60,8 +59,14 @@ KOMARM_CFG = ArticulationCfg(
                 "Revolute_3": 2.5,
                 "Revolute_4": 1.5,
                 "Revolute_5": 1.0,
-                "Revolute_6": 0.5,
             }
+        ),
+        "gripper": ImplicitActuatorCfg(
+            joint_names_expr=["Revolute_6"],
+            effort_limit_sim=1.5,  # Increased from 1.9 to 2.5 for stronger grip
+            velocity_limit_sim=1.5,
+            stiffness=5.0,  # Increased from 25.0 to 60.0 for more reliable closing
+            damping=1.0,  # Increased from 10.0 to 20.0 for stability
         ),
     },
     soft_joint_pos_limit_factor=0.9,
