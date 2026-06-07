@@ -1,4 +1,5 @@
 import torch
+from __future__ import annotations
 from typing import TYPE_CHECKING
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.assets import RigidObject
