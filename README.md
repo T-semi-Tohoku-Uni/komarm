@@ -40,3 +40,16 @@ uv run -m script.rsl_rl.play \
   --livestream 1 \
   --kit_args "--no-window --/app/livestream/publicEndpointAddress=${PUBLIC_IP} --/app/livestream/port=49100"
 ```
+
+## weight
+lift task:ボールの位置固定で実機アームが振動しない（3e5ce559a7686b00883b78dbe17a881b82819ccc）
+```bash
+~/komarm/logs/rsl_rl/lift/2026-06-06_20-49-28/exported/policy.pt
+~/komarm/logs/rsl_rl/lift/2026-06-06_20-49-28/model_1499.pt
+```
+
+lift task:ボールの位置を揺らして実機アームが振動しない（たぶん28a98d48e37dcc32ac300f5900465bc81de79667）
+```bash
+~/komarm/logs/rsl_rl/lift/2026-06-06_22-18-42/exported/policy.pt
+~/komarm/logs/rsl_rl/lift/2026-06-06_22-18-42/model_1050.pt
+```
