@@ -79,7 +79,7 @@ class CommandsCfg:
 @configclass
 class ActionsCfg:
     
-    arm_actions: mdp.JointPositionActionCfg | mdp.DifferentialInverseKinematicsActionCfg = MISSING
+    arm_action: mdp.JointPositionActionCfg | mdp.DifferentialInverseKinematicsActionCfg = MISSING
     gripper_action: mdp.BinaryJointPositionActionCfg = MISSING
 
 
@@ -219,7 +219,7 @@ class TerminationsCfg:
 "上で定義したクラスのインスタンスを作成して、強化学習環境全体を抽象的に設定している"
 
 @configclass
-class KomarmThrowEnvCfg(ManagerBasedRLEnvCfg):
+class ThrowEnvCfg(ManagerBasedRLEnvCfg):
     scene: ObjectBoxSceneCfg = ObjectBoxSceneCfg(num_envs=4096, env_spacing=2.5)
     rewards: RewardsCfg = RewardsCfg()
     observations: ObservationsCfg = ObservationsCfg()
