@@ -88,7 +88,7 @@ class ObservationsCfg:
     
     @configclass
     class PolicyCfg(ObsGroup):
-        #あとでobsを定義 それをPolicyCfgに入れる
+  
         joint_pos = ObsTerm(func=mdp.joint_pos_rel)
         joint_vel = ObsTerm(func=mdp.joint_vel_rel)
         ee_pos = ObsTerm(func=mdp.ee_position_in_robot_root_frame)
@@ -198,7 +198,7 @@ class CurriculumCfg:
     #あとで箱の大きさを小さくするカリキュラムを書く
 
 @configclass
-class TerminationCfg:
+class TerminationsCfg:
     time_out = DoneTerm(
         func=mdp.time_out, 
         time_out=True
@@ -217,6 +217,29 @@ class TerminationCfg:
 
 @configclass
 class KomarmThrowEnvCfg(ManagerBasedRLEnvCfg):
-    #あとで書く
+    scene: ObjectBoxSceneCfg = ObjectBoxSceneCfg(num_envs=4096, env_spacing=2.5)
     rewards: RewardsCfg = RewardsCfg()
-    pass
+    observations: ObservationsCfg = ObservationsCfg()
+    actions: ActionsCfg = ActionsCfg()
+    commands: CommandsCfg = CommandsCfg()  
+    rewards: RewardsCfg = RewardsCfg()
+    terminations: TerminationsCfg = TerminationsCfg()
+    events: EventCfg = EventCfg()
+    curriculum: CurriculumCfg = CurriculumCfg()
+
+
+    def __post_init__(self):
+        """Post initialization."""
+        # general settings
+        self.decimation = 2
+        self.episode_length_s = 5.0
+        self.viewer.eye = (2.5, 2.5, 1.5)
+        # simulation settings
+        self.sim.dt = 0.01  # 100Hz
+        self.sim.render_interval = self.decimation
+
+        self.sim.physx.bounce_threshold_velocity = 0.2
+        self.sim.physx.bounce_threshold_velocity = 0.01
+        self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 4
+        self.sim.physx.gpu_total_aggregate_pairs_capacity = 16 * 1024
+        self.sim.physx.friction_correlation_distance = 0.00625    
