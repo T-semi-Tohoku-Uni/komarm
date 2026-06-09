@@ -6,6 +6,7 @@ from isaaclab.assets import (
     RigidObjectCfg,
     AssetBaseCfg,
 )
+from isaaclab.envs import ManagerBasedRLEnvCfg
 from isaaclab.scene import InteractiveSceneCfg
 from isaaclab.sensors.frame_transformer.frame_transformer_cfg import FrameTransformerCfg
 from isaaclab.sim.spawners.from_files.from_files_cfg import GroundPlaneCfg, UsdFileCfg
@@ -14,9 +15,11 @@ from isaaclab.managers import SceneEntityCfg
 from isaaclab.managers import EventTermCfg as EventTerm
 from isaaclab.managers import CurriculumTermCfg as CurrTerm
 from isaaclab.managers import TerminationTermCfg as DoneTerm
+from isaaclab.managers import ObservationTermCfg as ObsTerm
+from isaaclab.managers import RewardTermCfg as RewTerm
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 import isaaclab.sim as sim_utils
-import tasks.lift.mdp as mdp
+import tasks.throw.mdp as mdp
 
 "抽象的な学習環境の定義（テンプレート）"
 
@@ -27,6 +30,8 @@ class ObjectBoxSceneCfg(InteractiveSceneCfg):
     robot: ArticulationCfg = MISSING
     ee_frame: FrameTransformerCfg = MISSING
     object: RigidObjectCfg | DeformableObjectCfg = MISSING
+    #あとでboxを作る or 領域
+    # target: RigidObjectCfg = MISSING
 
     plane = AssetBaseCfg(
         prim_path="/World/GroundPlane",
@@ -84,7 +89,9 @@ class ObservationsCfg:
     @configclass
     class PolicyCfg(ObsGroup):
         #あとでobsを定義 それをPolicyCfgに入れる
-        pass
+        joint_pos = ObsTerm(func=mdp.joint_pos_rel)
+        joint_vel = ObsTerm(func=mdp.joint_vel_rel)
+        
 
     policy = PolicyCfg()
 
@@ -126,7 +133,43 @@ class EventCfg:
 
 
 @configclass
-# class RewardsCfg:
+class RewardsCfg:
+    #あとでrewardを定義 landing_reward, obj_speed_reward, toward_target_reward
+
+    landing_reward = RewTerm(
+        func=mdp.landing_distance_reward,
+        params={"std": 0.1},
+        weight=1.0,
+    )
+
+    obj_speed_reward = RewTerm(
+        func=mdp.object_speed,
+        weight=0.1,
+    )
+
+    toward_target_reward = RewTerm(
+        func=mdp.toward_target_reward,
+        weight=0.5,
+    )
+
+    # release_obj_reward ,object_is_thrown
+    # target_in_reward
+
+
+
+    #actionの変化量に対してペナルティを与えるreward(後にカリキュラムラーニング)
+    action_rate = RewTerm(
+        func=mdp.action_rate_l2,
+        weight=-1e-4
+    )
+
+    #jointの速度に対してペナルティを与えるreward（後にカリキュラムラーニング）
+    joint_vel = RewTerm(
+        func=mdp.joint_vel_l2,
+        weight=-1e-4,
+        params={"asset_cfg": SceneEntityCfg("robot")},
+    )
+    
 
 
 @configclass
@@ -169,3 +212,9 @@ class TerminationCfg:
 
 
 "上で定義したクラスのインスタンスを作成して、強化学習環境全体を抽象的に設定している"
+
+@configclass
+class KomarmThrowEnvCfg(ManagerBasedRLEnvCfg):
+    #あとで書く
+    rewards: RewardsCfg = RewardsCfg()
+    pass
