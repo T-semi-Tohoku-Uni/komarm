@@ -212,6 +212,9 @@ class TerminationsCfg:
         }
     )
 
+    goal_achieved = DoneTerm(
+        func=mdp.object_in_target,
+    )
 
 "上で定義したクラスのインスタンスを作成して、強化学習環境全体を抽象的に設定している"
 
