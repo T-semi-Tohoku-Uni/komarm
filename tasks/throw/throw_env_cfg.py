@@ -91,7 +91,10 @@ class ObservationsCfg:
         #あとでobsを定義 それをPolicyCfgに入れる
         joint_pos = ObsTerm(func=mdp.joint_pos_rel)
         joint_vel = ObsTerm(func=mdp.joint_vel_rel)
-        
+        ee_pos = ObsTerm(func=mdp.ee_position_in_robot_root_frame)
+        ee_vel = ObsTerm(func=mdp.ee_velocity_in_robot_root_frame)
+        target_pos = ObsTerm(func=mdp.target_position_in_robot_root_frame)
+        actions = ObsTerm(func=mdp.last_action)
 
     policy = PolicyCfg()
 
@@ -134,7 +137,6 @@ class EventCfg:
 
 @configclass
 class RewardsCfg:
-    #あとでrewardを定義 landing_reward, obj_speed_reward, toward_target_reward
 
     landing_reward = RewTerm(
         func=mdp.landing_distance_reward,
@@ -154,8 +156,6 @@ class RewardsCfg:
 
     # release_obj_reward ,object_is_thrown
     # target_in_reward
-
-
 
     #actionの変化量に対してペナルティを与えるreward(後にカリキュラムラーニング)
     action_rate = RewTerm(
@@ -194,6 +194,8 @@ class CurriculumCfg:
             "num_steps": 10000
         }
     )
+
+    #あとで箱の大きさを小さくするカリキュラムを書く
 
 @configclass
 class TerminationCfg:
