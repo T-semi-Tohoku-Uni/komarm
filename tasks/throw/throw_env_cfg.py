@@ -85,8 +85,8 @@ class ObservationsCfg:
   
         joint_pos = ObsTerm(func=mdp.joint_pos_rel)
         joint_vel = ObsTerm(func=mdp.joint_vel_rel)
-        ee_pos = ObsTerm(func=mdp.ee_position_in_robot_root_frame)
-        ee_vel = ObsTerm(func=mdp.ee_velocity_in_robot_root_frame)
+        # ee_pos = ObsTerm(func=mdp.ee_position_in_robot_root_frame)
+        # ee_vel = ObsTerm(func=mdp.ee_velocity_in_robot_root_frame)
         target_pos = ObsTerm(func=mdp.target_position_in_robot_root_frame)
         actions = ObsTerm(func=mdp.last_action)
 
