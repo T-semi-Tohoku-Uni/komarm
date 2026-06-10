@@ -30,8 +30,7 @@ class ObjectBoxSceneCfg(InteractiveSceneCfg):
     robot: ArticulationCfg = MISSING
     ee_frame: FrameTransformerCfg = MISSING
     object: RigidObjectCfg | DeformableObjectCfg = MISSING
-    #あとでboxを作る or 領域
-    # target: RigidObjectCfg = MISSING
+    target: RigidObjectCfg | DeformableObjectCfg = MISSING
 
     plane = AssetBaseCfg(
         prim_path="/World/GroundPlane",
@@ -43,11 +42,6 @@ class ObjectBoxSceneCfg(InteractiveSceneCfg):
         prim_path="{ENV_REGEX_NS}/Table",
         init_state=AssetBaseCfg.InitialStateCfg(pos=[0.5, 0, 0], rot=[0.707, 0, 0, 0.707]),
         spawn=UsdFileCfg(usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Mounts/SeattleLabTable/table_instanceable.usd"),
-    )
-
-    #あとでboxを作る or 領域
-    box = AssetBaseCfg(
-
     )
 
     light = AssetBaseCfg(
