@@ -49,7 +49,7 @@ class KomarmThrowCubeEnvCfg(ThrowEnvCfg):
             prim_path="{ENV_REGEX_NS}/Object",
             #あとで計算する
             init_state=RigidObjectCfg.InitialStateCfg(
-                pos=[0.2, 0.0, 0.0300],
+                pos=[0.2, 0.0, 0.0300],    #0.18, 0.0, 0.30
                 rot=[1, 0, 0, 0],
             ),
             spawn=SphereCfg(
@@ -93,7 +93,7 @@ class KomarmThrowCubeEnvCfg(ThrowEnvCfg):
         self.scene.target = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/Target",
             #あとで計算する
-            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.4, 0.4, 0.015], rot=[1, 0, 0, 0]),
+            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.6, 0.0, 0.015], rot=[1, 0, 0, 0]),
             spawn=UsdFileCfg(
                 usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
                 scale=(2, 2, 1),   #6cm * 2 = 12cmの正方形の板にする

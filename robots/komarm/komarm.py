@@ -34,7 +34,7 @@ KOMARM_CFG = ArticulationCfg(
             "Revolute_1": 0.0,
             "Revolute_2": -1.3,
             "Revolute_3": 0.0,
-            "Revolute_4": 1.57,
+            "Revolute_4": 0.0,
             "Revolute_5": 0.0,
             "Revolute_6": 0.0,
         },

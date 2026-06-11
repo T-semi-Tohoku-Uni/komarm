@@ -108,9 +108,20 @@ class EventCfg:
         mode="reset",
         #ここをあとで考える
         params={
-            "pose_range": {"x": (0.10, 0.10), "y": (0.0, 0.0), "z": (0.0, 0.0)},  #cubeの初期位置を定義
+            "pose_range": {"x": (0.0, 0.0), "y": (0.0, 0.0), "z": (0.0, 0.0)},  #実際の位置は、init_state + pose_rangeの範囲でランダムに決まる
             "velocity_range": {},
             "asset_cfg": SceneEntityCfg("object", body_names="Object"),
+        },
+    )
+
+    #resetの時にtargetの位置をランダムにリセットするイベント
+    reset_target_position = EventTerm(
+        func=mdp.reset_root_state_uniform,
+        mode="reset",
+        params={
+            "pose_range": {"x": (0.0, 0.0), "y": (0.0, 0.0), "z": (0.0, 0.0)},  #実際の位置は、init_state + pose_rangeの範囲でランダムに決まる
+            "velocity_range": {},
+            "asset_cfg": SceneEntityCfg("target", body_names="Target"),
         },
     )
 
