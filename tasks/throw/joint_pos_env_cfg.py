@@ -10,7 +10,7 @@ from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
 from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
-from robots import SO_ARM100_CFG, SO_ARM101_CFG, KOMARM_CFG  # noqa: F401
+from robots import KOMARM_CFG  
 from tasks.throw.throw_env_cfg import ThrowEnvCfg
 # インポートを修正
 from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg, CollisionPropertiesCfg
@@ -91,21 +91,21 @@ class KomarmThrowCubeEnvCfg(ThrowEnvCfg):
 
         # Set big Cube as target box
         self.scene.target = RigidObjectCfg(
-            prim_path="{ENV_REGEX_NS}/Object",
+            prim_path="{ENV_REGEX_NS}/Target",
             #あとで計算する
-            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.2, 0.0, 0.015], rot=[1, 0, 0, 0]),
+            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.4, 0.4, 0.015], rot=[1, 0, 0, 0]),
             spawn=UsdFileCfg(
                 usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
-                scale=(8, 8, 0.5),   #8cm * 5 = 40cmの正方形の板にする
-                rigid_props=RigidBodyPropertiesCfg(
-                    solver_position_iteration_count=16,
-                    solver_velocity_iteration_count=1,
-                    max_angular_velocity=1000.0,
-                    max_linear_velocity=1000.0,
-                    max_depenetration_velocity=5.0,
-                    disable_gravity=False,
-                ),
-                collision_props=CollisionPropertiesCfg(),
+                scale=(2, 2, 1),   #6cm * 2 = 12cmの正方形の板にする
+                # rigid_props=RigidBodyPropertiesCfg(
+                #     solver_position_iteration_count=16,
+                #     solver_velocity_iteration_count=1,
+                #     max_angular_velocity=1000.0,
+                #     max_linear_velocity=1000.0,
+                #     max_depenetration_velocity=5.0,
+                #     disable_gravity=False,
+                # ),
+                # collision_props=CollisionPropertiesCfg(),
             ),
         )
 
